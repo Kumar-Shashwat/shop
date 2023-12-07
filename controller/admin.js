@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const product_per_page = 2;
+const product_per_page = 8;
 
 
 exports.getAddProducts = (req, res, next) => {

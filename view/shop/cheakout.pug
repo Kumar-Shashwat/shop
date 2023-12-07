@@ -1,0 +1,45 @@
+extend ../layout/shop-layout.pug
+
+block style 
+    link(rel="stylesheet", href="/style/shop.css")
+    link(rel="stylesheet", href="/style/itemCounter.css")
+    link(rel="stylesheet", href="/style/cart.css")
+
+block content 
+
+    div.book-gallery
+            if prod.length > 0
+                each product in prod
+                    div.book-container
+                        h1#book-title 
+                            u #{product.title}
+                        img#book-cover( src= product.imageUrl, alt="Book Cover")
+                        h1#book-price 
+                            em ₹ #{product.price}
+                        p#book-author By:- #{product.author}
+                        //- p#book-summary #{product.description}
+                        .item-counter Quatity:
+                            //- a(href = "/cart-decrease-count/"+ product.id )
+                            //-     .minus -
+                            .count 
+                                div #{product.count}
+                            //- a(href = "/cart-increase-count/"+ product.id )
+                            //-     .plus +
+                        
+                        // this thing will be updated for cart products.
+                        div#book-action-buttons
+                            a(href = "/product-details/"+ product.id )
+                                button#product-detials Detials
+                            form#form-cont(action= '/remove-item/' + product.id, method = 'post' )
+                                //- button#read-button(type = "submit") Remove Item
+                                input(type="hidden", name = 'prodId', value = product.id)
+                                input(type="hidden" name="_csrf" value= csrfToken)
+                        
+            else 
+                h1 No Products.
+
+    div.bottom
+        div.order-now-bottom 
+            a(href = "/cheakout")
+                button#product-detials Pay now:         
+                    em ₹ #{totalAmount}

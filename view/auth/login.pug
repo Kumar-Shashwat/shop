@@ -1,0 +1,39 @@
+extend ../layout/shop-layout.pug
+
+block style 
+    link(rel="stylesheet", href="/style/add-product.css")
+    link(rel="stylesheet", href="/style/login.css" )
+
+block content 
+     main
+            
+            if(errorMessage)
+                div.user-message.user-message--error #{errorMessage}
+            
+            if(sucessMessage)
+                div.user-message #{sucessMessage}
+
+            form.product-form( action="/login" method="POST")
+
+                
+
+                div.form-control
+                    label( for="email") Email
+                    input#title(type="email" name="email" value = user.email )
+
+                div.form-control
+                    label( for="password") Password 
+                    input#price(type="password" name="password"  value= user.password )
+                    .forget
+                        a.forget-password(href = "/verify-email") Forget Password?
+
+
+                    //- button(type="submit") Add Product 
+                input(type="hidden" name="_csrf" value= csrfToken)
+                button(type="submit") Login
+
+                div.not-logged-in Don't have a account? 
+                    a(href = '/register') register now!
+
+
+

@@ -1,0 +1,26 @@
+extend ../layout/shop-layout.pug
+
+block style 
+    link(rel="stylesheet", href="/style/shop.css")
+
+block content 
+    div.book-gallery
+            
+        div.book-container
+            h1#book-title 
+                u #{product.title}
+            img#book-cover( src= '/' + product.imageUrl, alt="Book Cover")
+            h1#book-price 
+                em ₹ #{product.price}
+            p#book-author By:- #{product.author}
+            p#book-summary #{product.description}
+            
+            div#book-action-buttons
+                //- a(href = "/product-details/"+ product.id )
+                //-     button#product-detials Detials
+                form#form-cont(action= '/cart', method = 'post')
+                    button#read-button(type = "submit") Add to cart
+                    input(type="hidden", name = 'prodId', value = product.id)
+                    input(type="hidden" name="_csrf" value= csrfToken)
+
+                        

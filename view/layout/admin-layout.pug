@@ -1,0 +1,51 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title #{title}
+        link(rel="stylesheet", href="/style/main.css")
+
+        block style
+    body 
+
+        header.main-header
+            nav.main-header__nav
+                ul.main-header__item-list
+
+                    li.main-header__item
+                        a(href="/" class = (path === 'shop/index' ? 'active' : '')) Shop
+
+                    li.main-header__item
+                        a(href="/product-list" class = (path === '/shop/product-list' ? 'active' : '')) product-list
+                    
+                    if(autharized == true)
+                        li.main-header__item
+                            a(href="/admin/edit-product" class = (path === 'admin/edit-product'? 'active' : '')) Add product 
+                        
+                        li.main-header__item
+                            a(href="/cart" class = (path === 'shop/cart'? 'active' : '')) Cart  
+                        
+                        li.main-header__item
+                            a(href="/cheakout" class = (path === 'shop/cheakout'? 'active' : '')) cheakout
+
+                    
+                        li.main-header__item
+                            a(href="/admin/products" class = (path === 'admin/products'? 'active' : '')) Admin products 
+
+                ul.main-header__item-list
+                    if(!autharized)
+                        ul.main-header__item
+                            a(href="/login" class = (path === '/login'? 'active' : '')) login
+                        ul.main-header__item
+                            a(href="/signup" class = (path === '/signup'? 'active' : '')) signup
+                    else
+                        ul.main-header__item
+                            input(type="hidden", name = "_csrf", value = csrfToken)
+                            a(href="/logout" class = (path === '/logout'? 'active' : '')) logout
+            
+        block content
+            //- all the content will be added from this alignment.
+
+    block scripts 
+        //- all the scripts will be added from this alignment.

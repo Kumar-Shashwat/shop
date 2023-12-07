@@ -1,0 +1,33 @@
+.user-message {
+    margin: 0.5rem auto;
+    width: 35%;
+    background-color: rgb(222, 217, 247);
+    color: black;
+    border: 3px solid rgb(197, 188, 244);
+    border-radius:5px;
+    padding: 0.5rem;
+    text-align: center;
+    
+}
+
+.user-message--error {
+    background-color: rgb(239, 172, 172);
+    border: rgb(245, 165, 165);
+    /* margin:2rem 0; */
+
+}
+
+.not-logged-in{
+    margin: 1rem auto;
+    /* width:20%; */
+    background-color: rgb(221, 221, 221);
+
+    padding: 1.5rem;
+    font-size: 1rem;
+    border-radius: 3px;
+}   
+
+.forget {
+    position:relative;
+    left:15rem;
+}

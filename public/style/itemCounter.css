@@ -1,0 +1,44 @@
+.item-counter{
+     justify-content: center;
+    /* align-items: center;  */
+    /* background-color: lightblue; */
+    flex-direction: row;
+    display: flex;
+    margin:  0.5rem 0;
+    
+}
+
+.minus,
+.plus {
+     height: 1.5rem;
+    width: 1.5rem;
+    border : 1px solid rgb(58, 58, 58);
+    margin: 0 0.5rem;
+    align-items: center;
+} 
+
+.count{
+    height: 1.5rem;
+    width: 3rem;
+    border : 1px solid rgb(58, 58, 58);
+    margin: 0 0.5rem;
+    align-items: center;
+    text-align: center;
+    display: grid;
+}
+
+.minus,
+.plus {
+    border-radius: 50%;
+}
+
+.minus:hover, .plus:hover{
+    cursor: pointer;
+    background-color: azure;
+}
+
+a {
+    text-decoration: none;
+}
+
+

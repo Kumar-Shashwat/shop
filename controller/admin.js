@@ -1,6 +1,7 @@
 const Product = require('../models/product');
-const product_per_page = 8;
+const fileHelper = require('../util/file');
 
+const product_per_page = 8;
 
 exports.getAddProducts = (req, res, next) => {
     res.render('admin/edit-product', {
@@ -9,10 +10,10 @@ exports.getAddProducts = (req, res, next) => {
             editing : false,
             errorMessage : null,
             product : {
-                title : 'Babbage',
-                price : '200',
-                author : 'annonymus',
-                description : 'A great book to understand the things.',
+                title : '',
+                price : '',
+                author : '',
+                description : '',
             }
 
             // autharized : req.session.isLoggedIn,
@@ -32,7 +33,7 @@ exports.postAddProduct = (req, res, next) => {
     
     if(!image){
 
-        // res.flash('error', 'Invalid input specially file.');
+        // res.flash('error', 'Invalid input specially imge file.');
         return res.render( 'admin/edit-product',{
             title : 'edit-product',
             path : 'admin/edit-product',
@@ -110,12 +111,15 @@ exports.postEditProduct = (req, res, next) =>{
     const email = req.session.user.email;
 
     if(image){
-         imageUrl = image.path;
-          // in this i do need to delete my older image from the image folder.
+
+        // delete my older image from the image folder.
+        fileHelper.deleteFile(imageUrl);
+
+        imageUrl = image.path;
     }
     else{
 
-            req.flash('error', 'Image is not uploaded or Attached file is not image.');
+        req.flash('error', 'Image is not uploaded or Attached file is not image.');
     }
        
 
@@ -137,8 +141,17 @@ exports.deleteProduct = (req, res, next) => {
     const productId = req.params.productId;
     const email = req.session.user.email;
 
-    Product.deleteById(productId, email).then( () => {
+    Product.getImageUrl(productId, email).then(([rows, fieldData]) => {
+
         
+        const imageUrl = rows[0].imageUrl;
+        // console.log(imageUrl);
+        fileHelper.deleteFile(imageUrl);
+
+        return Product.deleteById(productId, email);
+    })
+    .then( (result) => {
+
         res.redirect('/admin/products') // redirected to produts page of admin.
 
         // res.status(200).json({ message: 'Success!' });

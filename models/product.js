@@ -52,9 +52,13 @@ module.exports = class Product{
         // }
     }
 
+    static getImageUrl (id, email ){
+        return db.execute(`SELECT imageUrl FROM products where id = ? and createrEmail = ?;`, [id, email]); 
+    }
+
     static deleteById(id, email){
 
-        return db.execute('DELETE FROM products WHERE id = ? and createrEmail = ? ;', [id, email]);
+        return db.execute(`DELETE FROM products WHERE id =  ? and createrEmail = ? ;`, [id, email]);
 
         // for(let i =0; i< products.length; i++){
         //     if(products[i].id ===  id)

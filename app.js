@@ -87,15 +87,15 @@ try {
     app.use(routerLogin);
     app.use(routerCart);
     app.use(routerError);
-
+    
     app.use((error , req, res, next) => {
-      console.log(error);  
+      console.log(error );  
 
-      res.status(505);
+      res.status(500);
       res.render('error500', {title : 'error occured ', path: 'error500'});
     })
-
-
+    
+    
     // const server = http.createServer(app);
 
     // server.listen(60000);    // no need to create server and listening.
@@ -103,10 +103,12 @@ try {
     // express had a method listen which auto matically create a server and listening to the given port.
     // console.log(Date.now())   
 
-    const port = process.env.PORT ;
+    const port = process.env.PORT || 3000 ;
 
     app.listen(port);
+
+    // console.log(process.env);
 }
 catch (err ){
   console.log(err);
-};      
+};

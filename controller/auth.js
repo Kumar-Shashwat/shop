@@ -2,6 +2,7 @@ const crypto = require('crypto');
 
 const User = require('../models/user');
 const Token = require('../models/token');
+
 const bcryptjs = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const { error } = require('console');
@@ -154,6 +155,23 @@ exports.postRegister = (req, res, next ) => {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword;
 
+
+    // cheaking password.
+
+    if(password !== confirmPassword){
+        return res.render('auth/register' , {
+            title: 'register' , 
+            path : '/register',
+            errorMessage : 'Password did not matched.',
+            user : {
+                name : name,
+                email : email,
+                password : password,
+                confirmPassword : confirmPassword, 
+            }
+        })
+    }
+
     // only unique email address can be inserted into databases.
 
     // insert the email and password to the user table by encrypting the passowd.
@@ -164,6 +182,7 @@ exports.postRegister = (req, res, next ) => {
         const user = new User(name, email, hashedPassword);
 
         user.save().then( () => {
+
             req.flash('sucess','Sucessfully registered! Enter your email and password to login.');
             res.redirect('/login');
             return transporter.sendMail({       // returns a promish.
@@ -174,9 +193,11 @@ exports.postRegister = (req, res, next ) => {
             })
             .then(result => console.log(result))
             .catch( (err) => {
-                const error = new Error(err);
-                error.httpStatusCode = 500;
-                return next(error);
+
+                console.log(err);
+                // const error = new Error(err);
+                // error.httpStatusCode = 500;
+                // return next(error);
             });
         })
         .catch((err) => {
@@ -224,8 +245,8 @@ exports.postVerifyEmail = (req, res, next) => {
     User.findByEmail(email).then( ([rows, fieldData]) => {
 
         if(rows.length === 0){
-            req.flash('error' , 'No user is registered with this Email address.');
-            return res.redirect('/login');
+            req.flash('error' , `This email "${email}" is not registered. First create an account .`);
+            return res.redirect('/verify-email');
         }
 
         const user = rows[0];

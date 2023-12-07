@@ -28,6 +28,8 @@
 }   
 
 .forget {
-    position:relative;
-    left:15rem;
+    /* position:relative;
+    left:15rem; */
+
+    text-align: right;
 }

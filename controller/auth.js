@@ -280,7 +280,7 @@ exports.postVerifyEmail = (req, res, next) => {
                     subject: `Reset Password`,
                     html : `<h1>Your password reset process has initiated.</h1>
                             <p><h3>click on 
-                            <a href = "http://localhost:3000/reset-password/${token}"> reset password </a> 
+                            <a href = "https://shop-l1yw.onrender.com/reset-password/${token}"> reset password </a> 
                             to change your password.</h3> </p>
                             <p> The pssword reset link expires afer one hour `,
                 })
